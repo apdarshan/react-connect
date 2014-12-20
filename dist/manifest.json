@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+
+  "name": "Connect",
+  "description": "Connecting...",
+  "version": "1.0",
+
+  "permissions": [
+    "https://ajax.googleapis.com/*"
+  ],
+  "browser_action": {
+    "default_icon": "images/icon.png",
+    "default_popup": "index.html"
+  },
+  "background": {
+    "persistent": false,
+    "scripts": ["js/bg.js"]
+  },
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+}
