@@ -1,8 +1,8 @@
 {
-  "name": "flux-chat",
-  "version": "0.0.2",
-  "description": "Example Flux chat application primarily intended to explain the use of Dispatcher.waitFor().",
-  "repository": "https://github.com/facebook/flux",
+  "name": "react-connect",
+  "version": "0.0.1",
+  "description": "A react example app using Flux, Google Material-UI & Socket.IO",
+  "repository": "https://github.com/apdarshan/react-connect",
   "main": "js/app.js",
   "dependencies": {
     "flux": "^2.0.0",
@@ -25,7 +25,7 @@
     "build": "NODE_ENV=production browserify . | uglifyjs -cm > dist/js/bundle.min.js",
     "test": "jest"
   },
-  "author": "Bill Fisher",
+  "author": "Darshan Prakash",
   "browserify": {
     "transform": [
       "reactify",
