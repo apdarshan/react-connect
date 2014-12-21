@@ -18,6 +18,8 @@ var ChatWebAPIUtils = require('./utils/ChatWebAPIUtils');
 var React = require('react');
 var injectTapEventPlugin = require("react-tap-event-plugin"); // Material-UI dependency
 
+require('es6-promise').polyfill(); //makes Promise global
+
 window.React = React; // export for http://fb.me/react-devtools
 
 ChatExampleData.init(); // load example data into localstorage

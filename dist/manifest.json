@@ -6,7 +6,8 @@
   "version": "1.0",
 
   "permissions": [
-    "https://ajax.googleapis.com/*"
+    "https://ajax.googleapis.com/*",
+    "storage"
   ],
   "browser_action": {
     "default_icon": "images/icon.png",

@@ -18,7 +18,10 @@ module.exports = {
     CLICK_THREAD: null,
     CREATE_MESSAGE: null,
     RECEIVE_RAW_CREATED_MESSAGE: null,
-    RECEIVE_RAW_MESSAGES: null
+    RECEIVE_RAW_MESSAGES: null,
+
+    LOGIN_USER: null,
+    LOGOUT_USER: null
   }),
 
   PayloadSources: keyMirror({

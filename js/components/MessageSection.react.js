@@ -16,6 +16,7 @@ var MessageStore = require('../stores/MessageStore');
 var React = require('react');
 var ThreadStore = require('../stores/ThreadStore');
 
+
 function getStateFromStores() {
   return {
     messages: MessageStore.getAllForCurrentThread(),

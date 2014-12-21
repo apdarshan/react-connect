@@ -1,28 +1,55 @@
-/**
- * This file is provided by Facebook for testing and evaluation purposes
- * only. Facebook reserves all rights not expressly granted.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
- * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 var MessageSection = require('./MessageSection.react');
 var React = require('react');
+var UserStore = require('../stores/UserStore');
 var ThreadSection = require('./ThreadSection.react');
+var LoginSection = require('./LoginSection.react');
+var LoginActionCreators = require('../actions/LoginActionCreators');
+var Config = require('../utils/Config');
+var MUI = require('material-ui');
+
+var _isFirstTimeUser = true;
 
 var ChatApp = React.createClass({
+  
+  componentDidMount: function() {
+    UserStore.addChangeListener(this._onChange);
+    this._onChange();
+  },
+
+  componentWillUnmount: function() {
+    UserStore.removeChangeListener(this._onChange);
+  },
+
+  _onChange: function() {
+  	Config.isFirstTimeUser().then(function(res){
+    	_isFirstTimeUser = res;
+	  	/*triggers & re-render*/
+	  	this.forceUpdate();
+    }.bind(this));
+  },
 
   render: function() {
+  	var landing;
+
+  	if(_isFirstTimeUser) {
+  		landing = <LoginSection />;
+  	} else {
+	  	landing = <div>
+	  		<MUI.FlatButton className="right-align" label="Logout" primary={true} onClick={this._onClick}/>
+	  		<ThreadSection />
+	  		<MessageSection />
+	  	</div>;
+  	}
+
     return (
       <div className="chatapp">
-        <ThreadSection />
-        <MessageSection />
+        {landing}
       </div>
     );
+  },
+
+  _onClick: function() {
+      LoginActionCreators.logout();
   }
 
 });
