@@ -10,7 +10,8 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var StorageUtils = require('./StorageUtils');
+var StorageUtils = require('./StorageUtils'),
+    SocketServerUtils = require('./SocketServerUtils');
 
 // !!! Please Note !!!
 // We are using localStorage as an example, but in a real-world scenario, this
@@ -22,26 +23,29 @@ var StorageUtils = require('./StorageUtils');
 module.exports = {
 
   login: function(email, success, error) {
-    // ajax to server
 
-    // simulate success callback
-    /*setTimeout(function() {
-      var user = {email: email, gravatar: "http://www.gravatar.com/avatar/a7a6e27ed5d06642cb677dafa51f67bf"};
-      StorageUtils.setStorage("user", user);
-      success(user);
-    }, 2000);*/
-
-    var user = {email: email, gravatar: "http://www.gravatar.com/avatar/a7a6e27ed5d06642cb677dafa51f67bf"};
-    StorageUtils.setExtStorage("user", user).then(function(){
-      success(user);
-    }, function(){
-      error();
+    SocketServerUtils.login(email).then(function(data){
+      StorageUtils.setExtStorage("user", data).then(function(){
+        success(data);
+      }, function(){
+        error();
+      });
     });
+
   },
 
   logout: function() {
-    /*TODO: get user data & inform server as well*/
-    return StorageUtils.setExtStorage("user", null);
+
+    return StorageUtils.getExtStorage("user").then(function(user){
+      console.log("User data", user);
+      return SocketServerUtils.logout(user.email); //let server know
+    }, function(er){
+      console.log(er);
+    }).then(function(){
+      return StorageUtils.setExtStorage("user", null);
+    }, function(er){
+      console.log(er);
+    });
   }
 
 };

@@ -27,6 +27,10 @@ module.exports = {
   PayloadSources: keyMirror({
     SERVER_ACTION: null,
     VIEW_ACTION: null
-  })
+  }),
+
+  SOCKET: {
+    DOMAIN: "http://localhost:3003"
+  } 
 
 };

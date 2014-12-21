@@ -96,6 +96,7 @@ var MessageStore = assign({}, EventEmitter.prototype, {
     return {
       id: 'm_' + timestamp,
       threadID: ThreadStore.getCurrentID(),
+      threadName: ThreadStore.getCurrent().name,
       authorName: 'Bill', // hard coded for the example
       date: new Date(timestamp),
       text: text,

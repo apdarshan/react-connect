@@ -10,7 +10,8 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var ChatServerActionCreators = require('../actions/ChatServerActionCreators');
+var ChatServerActionCreators = require('../actions/ChatServerActionCreators'),
+    StorageUtils = require('./StorageUtils');
 
 // !!! Please Note !!!
 // We are using localStorage as an example, but in a real-world scenario, this
@@ -22,34 +23,39 @@ var ChatServerActionCreators = require('../actions/ChatServerActionCreators');
 module.exports = {
 
   getAllMessages: function() {
-    // simulate retrieving data from a database
-    var rawMessages = JSON.parse(localStorage.getItem('messages'));
+    StorageUtils.getExtStorage('messages').then(function(rawMessages){
+      ChatServerActionCreators.receiveAll(rawMessages);
+    });
 
-    // simulate success callback
-    ChatServerActionCreators.receiveAll(rawMessages);
   },
 
-  createMessage: function(message, threadName) {
-    // simulate writing to a database
-    var rawMessages = JSON.parse(localStorage.getItem('messages'));
+  createMessage: function(message) {
+
+    var createdMessage = this._getMessage(message);
+    StorageUtils.getExtStorage('messages').then(function(rawMessages){
+      rawMessages.push(createdMessage);
+      StorageUtils.setExtStorage("messages", rawMessages).then(function(){
+        ChatServerActionCreators.receiveCreatedMessage(createdMessage);
+      }, function(){
+        console.log("Error saving file");
+      });
+    });
+
+  },
+
+  _getMessage: function(message) {
     var timestamp = Date.now();
     var id = 'm_' + timestamp;
     var threadID = message.threadID || ('t_' + Date.now());
     var createdMessage = {
       id: id,
       threadID: threadID,
-      threadName: threadName,
+      threadName: message.threadName,
       authorName: message.authorName,
       text: message.text,
       timestamp: timestamp
     };
-    rawMessages.push(createdMessage);
-    localStorage.setItem('messages', JSON.stringify(rawMessages));
-
-    // simulate success callback
-    setTimeout(function() {
-      ChatServerActionCreators.receiveCreatedMessage(createdMessage);
-    }, 0);
+    return createdMessage;
   }
 
 };
