@@ -165,3 +165,9 @@ input {
 .message-section h3 {
   padding: 0;
 }
+
+.login-icon {
+  font-size: 125px;
+  text-align: center;
+  color: rgb(103, 203, 147);
+}

@@ -9,7 +9,6 @@ module.exports = {
 
 		return new Promise(function(resolve, reject){
 			_socket.on("loggedin", function(userData){
-				console.log("MY DATA", userData);
 				resolve(userData);
 			});
 		});

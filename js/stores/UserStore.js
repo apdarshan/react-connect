@@ -46,19 +46,23 @@ var UserStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  get: function(id) {
+  get: function() {
     return _user;
+  },
+  set: function(userObj){
+    _user = userObj;
   }
 
 });
 
 UserStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
   var action = payload.action;
-  console.warn("UserStore", action.type);
+  console.warn("UserStore  payload", payload);
   switch(action.type) {
 
     case ActionTypes.LOGIN_USER:
       //_markAllInThreadRead();
+      UserStore.set(action.user);
       UserStore.emitChange();
       break;
 

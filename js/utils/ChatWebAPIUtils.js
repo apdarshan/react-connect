@@ -11,6 +11,7 @@
  */
 
 var ChatServerActionCreators = require('../actions/ChatServerActionCreators'),
+    UserStore = require('../stores/UserStore'),
     StorageUtils = require('./StorageUtils');
 
 // !!! Please Note !!!
@@ -30,6 +31,8 @@ module.exports = {
   },
 
   createMessage: function(message) {
+
+    console.log("USER Store get", UserStore.get());
 
     var createdMessage = this._getMessage(message);
     StorageUtils.getExtStorage('messages').then(function(rawMessages){

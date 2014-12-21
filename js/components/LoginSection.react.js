@@ -24,6 +24,7 @@ var LoginSection = React.createClass({
    
     return (
       <div id="login-section" className="middle">
+        <MUI.Icon className="login-icon" icon="communication-email" />
         <input id="login-email" type="text" placeholder="Enter email address"/>
         <RaisedButton label="Join" primary={true} onClick={this._onClick}/>
       </div>
