@@ -6,10 +6,14 @@
   "version": "1.0",
 
   "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
     "https://ajax.googleapis.com/*",
     "http://localhost:3003/*",
-    "storage",
-    "tabs"
+    "https://www.google.com/*",
+    "http://*/*",
+    "https://*/*"
   ],
   "browser_action": {
     "default_icon": "images/icon.png",
@@ -17,7 +21,7 @@
   },
   "background": {
     "persistent": false,
-    "scripts": ["js/bg.js"]
+    "page": "background.html"
   },
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com http://localhost:3003; object-src 'self'"
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com http://localhost:3003 https://www.google.com; object-src 'self'"
 }

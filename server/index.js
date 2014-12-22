@@ -1,5 +1,6 @@
 var app = require('express')();
 var http = require('http').Server(app);
+var md5 = require('MD5');
 var io = require('socket.io')(http);
 
 var PORT = "3003";
@@ -60,7 +61,7 @@ function _getUserObj(email, socket) {
 
   console.log("Logged in Socket", socket.id);
 
-  var gravatarImg = "",
+  var gravatarImg = "http://www.gravatar.com/avatar/" + md5(email),
       username = email.split("@")[0];
 
   return {username: username, email: email, gravatar: gravatarImg, socketID: socket.id}

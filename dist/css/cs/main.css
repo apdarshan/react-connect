@@ -1,0 +1,35 @@
+.notif-toaster {
+  position: fixed;
+  z-index: 9999999 !important;
+  width: auto;
+  height: auto;
+  right: 10px;
+  top: 50%; 
+  border-radius: 10px;
+  background: rgba(87, 39, 22, 0.91);
+  padding: 12px;
+  color: white;
+}
+
+.notif-toaster .notif-toaster-log-info {
+  line-height: 50px;
+  margin-left: 6px;
+}
+
+.notif-toaster .notif-toaster-icon {
+  width: 50px;
+  height: 50px;
+  display: inline;
+  border: 2px solid;
+  margin-right: 5px;
+  background: cadetblue;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+
+.notif-toaster img{
+  border-radius: 100%;
+}

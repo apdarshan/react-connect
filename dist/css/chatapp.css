@@ -107,7 +107,7 @@ body, html{
 }
 
 .chatapp {
-  margin-top: 0px;
+  margin: 0 auto;
   padding: 10px;
 }
 

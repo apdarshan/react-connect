@@ -11,5 +11,10 @@ module.exports = {
         		reject();
         	});
         });
+    },
+
+    getBGPage: function() {
+        return chrome.extension.getBackgroundPage();
     }
+    
 }

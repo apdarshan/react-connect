@@ -23,7 +23,7 @@ var LoginSection = React.createClass({
   render: function() {
    
     return (
-      <div id="login-section" className="middle">
+      <div id="login-section">
         <MUI.Icon className="login-icon" icon="communication-email" />
         <input id="login-email" type="text" placeholder="Enter email address"/>
         <RaisedButton label="Join" primary={true} onClick={this._onClick}/>
