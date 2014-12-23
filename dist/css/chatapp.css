@@ -154,6 +154,10 @@ input {
   float: right;
 }
 
+.left-align {
+  float: left;
+}
+
 .logout {
   display: block;
 }
@@ -170,4 +174,8 @@ input {
   font-size: 125px;
   text-align: center;
   color: rgb(103, 203, 147);
+}
+
+#react .users-list button {
+  background-color: #1DD0AE;
 }

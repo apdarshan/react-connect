@@ -25,7 +25,7 @@ module.exports = {
       text: text
     });
     var message = MessageStore.getCreatedMessageData(text);
-    ChatWebAPIUtils.createMessage(message);
+    ChatWebAPIUtils.createMessage(message); //sending to server
   }
 
 };

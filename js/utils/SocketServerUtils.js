@@ -4,13 +4,9 @@ var Config = require('./Config'),
 var _socket;
 module.exports = {
 	init: function() {
-		if(!Config.getBGPage()) {
-			alert("Socket Connection Error");
-		}
-		_socket =  Config.getBGPage()._socket; //same socket is shared. From bg page
-		//this._listenForEnvents();
+		_socket =  Config.getBGSocket(); //same socket is shared. From bg page (TODO: reconnecting if socket failed )
 	},
-	login: function(email){
+	login: function(email) {
 		_socket.emit("login", email);
 
 		return new Promise(function(resolve, reject){
@@ -25,7 +21,13 @@ module.exports = {
 		_socket.emit("logout", email);
 	},
 
-	/*_listenForEvents: function() {
-
-	}*/
+	sendMsg: function(msg) {
+		_socket.emit("chat message", msg);
+		return new Promise(function(resolve, reject){
+			_socket.on("message sent", function(msgRes){
+				console.log("My msg sent:", msgRes);
+				resolve(msgRes);
+			});
+		});
+	}
 }

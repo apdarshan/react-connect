@@ -17,9 +17,10 @@ var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
 var ActionTypes = ChatConstants.ActionTypes;
-var CHANGE_EVENT = 'change';
+var CHANGE_EVENT = 'change', USERS_CHANGE_EVENT = 'users change';
 
 var _user = {};
+var _users = []; // Logged in users
 
 function _markAllInThreadRead(threadID) {
   /*for (var id in _messages) {
@@ -46,11 +47,31 @@ var UserStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
+  addUsersListChangeListener: function(callback) {
+    this.on(USERS_CHANGE_EVENT, callback);
+  },
+  
+  removeUsersListChangeListener: function(callback) {
+    this.removeListener(USERS_CHANGE_EVENT, callback);
+  },
+
+  emitListChange: function() {
+    this.emit(USERS_CHANGE_EVENT);
+  },
+
   get: function() {
     return _user;
   },
   set: function(userObj){
     _user = userObj;
+  },
+
+  setUsers: function(users) {
+    _users = users;
+  },
+
+  getUsers: function() {
+    return _users;
   }
 
 });
@@ -69,6 +90,10 @@ UserStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
     case ActionTypes.LOGOUT_USER:
       //_markAllInThreadRead();
       UserStore.emitChange();
+      break;
+    case ActionTypes.RECEIVE_USERS_LIST:
+      UserStore.setUsers(action.users);
+      UserStore.emitListChange();
       break;
 
     default:

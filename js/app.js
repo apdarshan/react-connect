@@ -28,7 +28,7 @@ window.React = React; // export for http://fb.me/react-devtools
 
 
 /*Default Example data*/
-ChatExampleData.init().then(function(){
+ChatExampleData.init().then(function() {
 
 	ChatWebAPIUtils.getAllMessages();
 	React.render(

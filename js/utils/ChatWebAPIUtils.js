@@ -12,6 +12,8 @@
 
 var ChatServerActionCreators = require('../actions/ChatServerActionCreators'),
     UserStore = require('../stores/UserStore'),
+    SocketServerUtils = require('./SocketServerUtils'),
+    Config = require('./Config'),
     StorageUtils = require('./StorageUtils');
 
 // !!! Please Note !!!
@@ -32,13 +34,14 @@ module.exports = {
 
   createMessage: function(message) {
 
-    console.log("USER Store get", UserStore.get());
-
     var createdMessage = this._getMessage(message);
+
     StorageUtils.getExtStorage('messages').then(function(rawMessages){
       rawMessages.push(createdMessage);
-      StorageUtils.setExtStorage("messages", rawMessages).then(function(){
-        ChatServerActionCreators.receiveCreatedMessage(createdMessage);
+      StorageUtils.setExtStorage("messages", rawMessages).then(function() {
+        SocketServerUtils.sendMsg(createdMessage).then(function(msgRes) {
+          ChatServerActionCreators.receiveCreatedMessage(msgRes);
+        });
       }, function(){
         console.log("Error saving file");
       });
@@ -56,7 +59,8 @@ module.exports = {
       threadName: message.threadName,
       authorName: message.authorName,
       text: message.text,
-      timestamp: timestamp
+      timestamp: timestamp,
+      sender: Config.getUserSync()
     };
     return createdMessage;
   }

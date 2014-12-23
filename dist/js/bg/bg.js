@@ -1,7 +1,14 @@
 (function(){
 
 	var CHAT_SOCKET_DOMAIN = "http://localhost:3003";
-	window._socket = io.connect(CHAT_SOCKET_DOMAIN);
+	var _socket;
+
+	function _connectSocket() {
+		_socket = io.connect(CHAT_SOCKET_DOMAIN);
+		return _socket;
+	}
+
+	_connectSocket();
 
 
 	function _includeContentScript(){
@@ -25,28 +32,40 @@
 		});
 	}
 
-	_socket.on("new user login", function(user){
+
+	function _sendMessage2ContentScript(payload) {
 		_includeContentScript().then(function(){
 			chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-				console.log("Error", user);
-	  			chrome.tabs.sendMessage(tabs[0].id, {type: "toaster", data: user}, function(response) {
+				chrome.tabs.sendMessage(tabs[0].id, payload, function(response) {
 			   		//console.log("RESPONSE From CS:", response.farewell);
 				});
 			});
 		});
+	}
+
+	_socket.on("new user login", function(user){
+		var payload = {type: "login-toaster", data: user};
+		_sendMessage2ContentScript(payload);
 	});
 
 	_socket.on("user logged out", function(user){
-		console.log("An user Logged OUT", user);
+		var payload = {type: "logout-toaster", data: user};
+		_sendMessage2ContentScript(payload);
 	});
+
+	_socket.on("new message", function(data){
+		var payload = {type: "message-toaster", data: data};
+		_sendMessage2ContentScript(payload);
+
+	});
+
+
+	window.Socket = {
+		get: _connectSocket
+	};
 
 
 }());
 
-chrome.browserAction.onClicked.addListener(function(tab) {
-  // No tabs or host permissions needed!
-  console.log('Turning ' + tab.url + ' red!');
-  chrome.tabs.executeScript({
-    code: 'document.body.style.backgroundColor="red"'
-  });
-});
+
+
