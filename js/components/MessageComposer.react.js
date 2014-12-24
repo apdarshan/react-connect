@@ -23,6 +23,15 @@ var MessageComposer = React.createClass({
 
   render: function() {
     return (
+      <div>
+      <div className="google-microphone" onClick={this._listen}>
+        <div className="shadow" ref="micShadow">
+          <div className="gn">
+            <div className="mc">
+            </div>
+          </div>
+        </div>
+      </div>
       <textarea
         className="message-composer"
         name="message"
@@ -30,6 +39,7 @@ var MessageComposer = React.createClass({
         onChange={this._onChange}
         onKeyDown={this._onKeyDown}
       />
+      </div>
     );
   },
 
@@ -46,6 +56,12 @@ var MessageComposer = React.createClass({
       }
       this.setState({text: ''});
     }
+  },
+
+  _listen: function() {
+    var ul = this.refs.micShadow.getDOMNode();
+    ul.scrollTop = ul.classList.toggle("listening");
+    ChatMessageActionCreators.listen();
   }
 
 });

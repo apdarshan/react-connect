@@ -10,7 +10,7 @@
     "tabs",
     "activeTab",
     "https://ajax.googleapis.com/*",
-    "http://localhost:3003/*",
+    "https://localhost:3004/*",
     "https://www.google.com/*",
     "http://*/*",
     "https://*/*"
@@ -23,5 +23,8 @@
     "persistent": false,
     "page": "background.html"
   },
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com http://localhost:3003 https://www.google.com; object-src 'self'"
+  "externally_connectable": {
+    "matches": ["https://localhost:3004/*"]
+  },
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com http://localhost:3003 https://localhost:3004 https://www.google.com; object-src 'self'"
 }

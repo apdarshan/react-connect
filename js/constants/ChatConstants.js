@@ -31,7 +31,7 @@ module.exports = {
   }),
 
   SOCKET: {
-    DOMAIN: "http://localhost:3003"
+    DOMAIN: "https://localhost:3004"
   } 
 
 };

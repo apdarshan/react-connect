@@ -10,7 +10,6 @@
 
 	_connectSocket();
 
-
 	function _includeContentScript(){
 
 		return new Promise(function(resolve, reject) {
@@ -37,7 +36,7 @@
 		_includeContentScript().then(function(){
 			chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 				chrome.tabs.sendMessage(tabs[0].id, payload, function(response) {
-			   		//console.log("RESPONSE From CS:", response.farewell);
+			   		console.log("BG: RESPONSE From CS:", response);
 				});
 			});
 		});
@@ -64,6 +63,18 @@
 		get: _connectSocket
 	};
 
+
+	window.ChatMessage = {
+		listen: function(success) {
+			_sendMessage2ContentScript({type:"listen"});
+			chrome.runtime.onMessageExternal.addListener(function(request, sender, sendResponse) {
+			    if(request.data.msg) {
+			    	console.log("BG", request.data.msg);
+			    	success(request.data.msg);
+				}
+			});
+		}
+	};
 
 }());
 

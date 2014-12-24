@@ -5,6 +5,7 @@
   "dependencies": {
     "MD5": "^1.2.1",
     "express": "^4.10.2",
+    "pem": "^1.4.4",
     "socket.io": "^1.2.1"
   }
 }

@@ -1,6 +1,7 @@
 var MessageSection = require('./MessageSection.react');
 var React = require('react');
 var UserStore = require('../stores/UserStore');
+var UsersSection = require('./UsersSection.react');
 var ThreadSection = require('./ThreadSection.react');
 var LoginSection = require('./LoginSection.react');
 var LoginActionCreators = require('../actions/LoginActionCreators');
@@ -58,7 +59,7 @@ var ChatApp = React.createClass({
         var users = this.state.users.map(function(user){
           return <div data-id={user.socketID}>{user.username}</div>;
         });
-        mainSection = <div>{users}</div>;
+        mainSection =  <UsersSection/>
       }
 
 	  	landing = <div>

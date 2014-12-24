@@ -112,9 +112,9 @@ body, html{
 }
 
 .middle {
-  /*display: flex;
+  display: flex;
   justify-content: center;
-  align-items: center;*/
+  align-items: center;
 }
 
 #login-section {
@@ -178,4 +178,122 @@ input {
 
 #react .users-list button {
   background-color: #1DD0AE;
+}
+
+.user-list {
+  overflow-y: auto;
+}
+
+.user-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  background: rgb(237, 235, 235);
+  margin-bottom: 5px;
+}
+.user-list-item .user-author-name{
+  margin: 0 5px;
+  padding: 0;
+}
+
+.users-heading {
+  clear: both;
+}
+
+.user-list-item .user-gravatar img {
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgb(110, 115, 110);
+  background: rgb(236, 236, 236);
+  border-radius: 100%;
+}
+
+#react .user-list-item button {
+  background-color: #23AE6A
+}
+
+
+
+.google-microphone {
+  width:10em; height:10em;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position: absolute;
+  left: 6px;
+  bottom: 13px;
+}
+.google-microphone .shadow {
+  position:relative;
+  margin: 5% auto;
+  border-radius:50%;
+  width:3em; height:3em;
+  background: #DBDBDB;
+  top:20%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+@-webkit-keyframes mic-listen { 
+  from { 
+    width:3em;
+    height:3em;
+  } to { 
+    width:5em;
+    height:5em; 
+  }  
+}
+
+.listening {
+-webkit-animation: mic-listen 0.4s cubic-bezier(0.25,0.1,0.25,1) 0s infinite alternate;
+}
+
+.google-microphone .listening .gn{
+  background-color:green;
+}
+
+.google-microphone .gn{
+  position:relative;
+  margin: 5% auto;
+  background-color:red;
+  border-radius:50%;
+  width:3em; height:3em;
+}
+.google-microphone :before, .google-microphone :after{
+  content:'';
+  position:absolute;
+  background-color:#fff;
+}
+.google-microphone .gn:after{
+  top:30%; left:43%;
+  height:15%; width:14%;
+  border-top-left-radius:50%;
+  border-top-right-radius:50%;
+}
+.google-microphone .gn:before{
+  top:40%; left:43%;
+  height:15%; width:14%;
+  border-bottom-left-radius:50%;
+  border-bottom-right-radius:50%;
+}
+.google-microphone .mc{
+  position:absolute;
+  top:50%; left:37%;
+  height:24%;
+  width:26.5%;
+  overflow:hidden;
+}
+.google-microphone .mc:before{
+  bottom:50%;
+  width:100%; height:100%;
+  box-sizing:border-box;
+  border-radius:50%;
+  border:0.1em solid #fff;
+  background:none;
+}
+.google-microphone .mc:after{
+  top:50%; left:40%;
+  width:20%; height:25%;
 }

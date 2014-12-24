@@ -15,7 +15,6 @@ module.exports = {
     getUser: function() {
         return new Promise(function(resolve, reject) {
             StorageUtils.getExtStorage("user").then(function(user){
-                console.error("Not Found", user);
                 currUser = user;
                 resolve(user);
             }, function(er){
@@ -31,6 +30,14 @@ module.exports = {
 
     getBGSocket: function() {
         return this.getBGPage().Socket.get();
+    },
+
+    _temp: function(msg) {
+        document.querySelector(".message-composer").value = msg;
+    },
+
+    listen: function() {
+        this.getBGPage().ChatMessage.listen(this._temp);
     }
     
 }
