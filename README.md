@@ -33,7 +33,6 @@ Run App - Finally!
 - Click on ``JOIN`` button & Enjoy
 
 
-
 NOTES:
 - *Eventually servers should be running in a public address so that users can chat across machines.
 - **Injecting iframe to webpages(using content script) to use ``WebkitSpeechRecognition`` api. Since we cannot inject contentscripts to browser's default pages. We should be in any website to use extension's voice input.
