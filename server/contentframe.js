@@ -40,6 +40,7 @@ function _listen() {
           }
         }
         final_transcript = final_transcript;
+        /*Paste your extension id found under chrome://extensions page*/
         chrome.runtime.sendMessage("lkfgmgohhglpaeboopbhlhfnlilphjah", {data: { msg : final_transcript}});
 
     };
