@@ -3,9 +3,10 @@ React-Connect
 
 React Connect (A Google Chrome browser extension) is a chat app using http://material-ui.com/, http://facebook.github.io/flux/, http://facebook.github.io/react/ and http://socket.io/
 
-Clone this repo and follow below steps to run the app.
+Clone this repo and follow below steps to run the app
 
 ### Run Server
+- Install NodeJS using http://nodejs.org/
 - Go to ``server`` direcoty & run ``npm install`` using command line (installs node dependencis)
 - :point_down:And run command ``node index.js`` to start the servers  - http (@ port 3003) and https (@ port 3004)
 
