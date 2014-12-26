@@ -1,22 +1,3 @@
-(function() {
-    /*	var cssTxt = "position: absolute;z-index: 9999999 !important;width: 200px;height: 100px;right: 10px;background-color: red;top: 250px;";
-    	var toaster = document.createElement("div");
-    	document.body.appendChild(toaster);*/
-
-    /*var recognition = new webkitSpeechRecognition();
-	recognition.continuous = true;
-	recognition.interimResults = true;
-
-	console.log("FSDAFDSA CONENT SCRIPT");
-
-	recognition.onresult = function(event) { 
-	  console.log(event) 
-	}
-	recognition.start();*/
-
-}());
-
-
 console.log("CS: chrome.extenion obj", chrome.extension);
 
 chrome.runtime.onMessage.addListener(_runtimeMsgListener);
@@ -67,8 +48,7 @@ function _listen(iframe) {
 	  console.log("RESPONSE ", response);
 	});*/
 	
-
-/*	chrome.runtime.onMessageExternal.addListener(
+	/*chrome.runtime.onMessageExternal.addListener(
 	  function(request, sender, sendResponse) {
 	    console.log("Ext msg", arguments);
 	      // now the data is on your extension side, just save it to extension's localstorage.

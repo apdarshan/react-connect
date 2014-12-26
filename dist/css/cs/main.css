@@ -1,3 +1,7 @@
+#reactConnectFrame {
+  display: none;
+}
+
 .notif-toaster {
   position: fixed;
   z-index: 9999999 !important;
