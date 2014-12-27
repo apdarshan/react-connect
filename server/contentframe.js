@@ -1,7 +1,7 @@
 console.log("CF Runtime", chrome.runtime);
 console.log("CF Extension", chrome.extension);
 
-//chrome.runtime.connect({name: "knockknock"});
+//var port = chrome.runtime.connect({name: "knockknock"});
 //port.postMessage({joke: "Knock knock"});
 
 /*port.onMessage.addListener(function(msg) {

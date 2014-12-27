@@ -38,6 +38,11 @@ io.on('connection', function(socket){
 
     var user = _getUserFromList(msg.sender.email); // not using socket id
 
+    /*if user not defined*/
+    if(!user) {
+      _addUser2List(msg.sender.email, socket);
+    }
+
     console.log('received message: ::::', msg, " From USer::", user);
 
     /*to sender*/
@@ -78,6 +83,9 @@ io.on('connection', function(socket){
 
 function _addUser2List(email, socket) {
   var userObj = _getUserObj(email, socket);
+
+  /*to remove if same user object is present with old socket id*/
+  _removeUserFromList(email);
   users.push(userObj);
 
   //console.log("Remaining users: ", users);

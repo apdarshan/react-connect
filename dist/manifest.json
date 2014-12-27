@@ -9,9 +9,6 @@
     "storage",
     "tabs",
     "activeTab",
-    "https://ajax.googleapis.com/*",
-    "https://localhost:3004/*",
-    "https://www.google.com/*",
     "http://*/*",
     "https://*/*"
   ],
@@ -20,7 +17,7 @@
     "default_popup": "index.html"
   },
   "background": {
-    "persistent": false,
+    "persistent": true,
     "page": "background.html"
   },
   "externally_connectable": {
