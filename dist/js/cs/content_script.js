@@ -22,7 +22,7 @@ function _runtimeMsgListener(request, sender, sendResponse) {
 			msg: "Says: " + request.data.msg.text, 
 			autoHide : { 
 				interval:8000, 
-				animateClass: "hinge"
+				animateClass: "flipOutX"
 			}
 		};
     	_showPlainToaster(toasterInfo);

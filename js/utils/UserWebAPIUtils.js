@@ -19,10 +19,10 @@ module.exports = {
 
 	init: function() {
 		/*new friends listener*/
-		Config.addBGListener("new friend", this.watchNewFriends);
+		Config.addBGListener("new friend", this._watchNewFriends);
 	},
 
-	watchNewFriends: function(friends) {
+	_watchNewFriends: function(friends) {
 		UserActionCreators.receiveNewFriends(friends);
 	}
 };

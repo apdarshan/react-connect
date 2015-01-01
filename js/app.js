@@ -17,6 +17,7 @@ var Config = require('./utils/Config');
 var UserStore = require('./stores/UserStore');
 var ChatExampleData = require('./ChatExampleData');
 var ChatWebAPIUtils = require('./utils/ChatWebAPIUtils');
+var UserWebAPIUtils = require('./utils/UserWebAPIUtils');
 var SocketServerUtils = require('./utils/SocketServerUtils');
 var React = require('react');
 var injectTapEventPlugin = require("react-tap-event-plugin"); // Material-UI dependency
@@ -31,17 +32,16 @@ window.React = React; // export for http://fb.me/react-devtools
 
 /*Default Example data*/
 function init() {
+	UserWebAPIUtils.init();
 	return Config.getUser().then(function(user){
 		return UserStore.set(user);
 	});
 }
 
 init().then(function() {
-
 	ChatWebAPIUtils.getAllMessages();
 	React.render(
 	    <ChatApp />,
 	    document.getElementById('react')
 	);
-
 });

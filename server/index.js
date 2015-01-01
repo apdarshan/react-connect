@@ -5,7 +5,7 @@ var pem = require('pem');
 var io = require('socket.io')(http);
 var https;
 
-var PORT = "3003", SECURE_PORT = "3004";//"443";
+var PORT = "3003", SECURE_PORT = "3004"; //"443";
 
 pem.createCertificate({days:1, selfSigned:true}, function(err, keys) {
   https = require('https').Server({key: keys.serviceKey, cert: keys.certificate}, app);
@@ -37,7 +37,7 @@ io.on('connection', function(socket) {
 
   socket.on('chat message', function(msg){
 
-    var user = _getUserFromList(msg.sender.email); // not using socket id
+    var user = _getUserFromList(msg.sender.email); //not using socket id
 
     /*if user not defined*/
     if(!user) {
