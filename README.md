@@ -7,12 +7,12 @@ Clone this repo and follow below steps to run the app
 
 ### Run Server
 - Install NodeJS using http://nodejs.org/
-- Go to ``server`` direcoty & run ``npm install`` using command line (installs node dependencis)
+- Go to ``server`` directory & run ``npm install`` using command line (installs node dependencies)
 - :point_down:And run command ``node index.js`` to start the servers  - http (@ port 3003) and https (@ port 3004)
 
 ### Run Browserify watcher
 - Using command line ``npm install`` in the root directory of the project (installs node dependencies)
-- Run ``npm start`` in command line to start wathcer (creates ``dist/js/bundle.js``)
+- Run ``npm start`` in command line to start watcher (creates ``dist/js/bundle.js``)
 - Use ``dist`` directory to pack as chrome extension
 	- Open ``chrome://extensions`` in Google Chrome browser
 	- Drag your ``dist`` directory from the file system and drop on ``chrome://extensions`` page
@@ -31,11 +31,12 @@ Clone this repo and follow below steps to run the app
 ### Run App - Finally!
 - Open any website in chrome (except built in browser pages :bulb:) 
 - Click on ``CONNECT`` extension icon
-- Enter email address for the firsttime
+- Enter email address for the first-time
 - Click on ``JOIN`` button & Enjoy
 
 
 NOTES:
 - :point_down: Eventually servers should be running in a public address so that users can chat across machines.
 - :angry: This annoyance will be removed eventually
-- :bulb: Injecting iframe to webpages(using content script) to use ``WebkitSpeechRecognition`` api. Since we cannot inject contentscripts to browser's default pages. We should be in a website to use extension's voice input.
+- :bulb: Injecting iframe to webpages(using content script) to use ``WebkitSpeechRecognition`` api. Since we cannot inject content scripts to browser's default pages. We should be in a website to use extension's voice input.
+
