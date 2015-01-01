@@ -14,6 +14,7 @@ var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
 var ChatConstants = require('../constants/ChatConstants');
 var ChatWebAPIUtils = require('../utils/ChatWebAPIUtils');
 var MessageStore = require('../stores/MessageStore');
+var UserStore = require('../stores/UserStore');
 var Config = require('../utils/Config');
 
 var ActionTypes = ChatConstants.ActionTypes;
@@ -31,6 +32,10 @@ module.exports = {
 
   listen: function() {
   	Config.listen();
+  },
+
+  sendRequest: function(toEmail) {
+    ChatWebAPIUtils.sendRequest(toEmail, UserStore.get());
   }
 
 };

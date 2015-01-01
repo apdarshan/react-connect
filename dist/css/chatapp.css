@@ -209,20 +209,20 @@ input {
   border-radius: 100%;
 }
 
-#react .user-list-item button {
+#react .user-list-item .send-request-btn {
   background-color: #23AE6A
 }
 
 
 
 .google-microphone {
-  width:10em; height:10em;
+  width:10em; height:3em;
   display:flex;
   justify-content:center;
   align-items:center;
   position: absolute;
   left: 6px;
-  bottom: 13px;
+  bottom: 40px;
 }
 .google-microphone .shadow {
   position:relative;

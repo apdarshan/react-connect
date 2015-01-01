@@ -28,10 +28,11 @@ app.get('/contentframe.js', function(req, res){
   res.sendfile('contentframe.js');
 });
 
-io.on('connection', function(socket){
+io.on('connection', function(socket) {
   
-  socket.on('disconnect', function(){
+  socket.on('disconnect', function() {
     console.log('user disconnected');
+    //_removeUserFromListUsingID(socket.id);
   });
 
   socket.on('chat message', function(msg){
@@ -65,6 +66,12 @@ io.on('connection', function(socket){
 
   });
 
+
+  socket.on('login back', function(email) {
+    _removeUserFromList(email); //remove old socket user
+    _addUser2List(email, socket);
+  });
+
   socket.on('logout', function(email){
     _removeUserFromList(email);
 
@@ -79,25 +86,45 @@ io.on('connection', function(socket){
     io.emit('users list', users);
   });
 
+  socket.on("send request", function(data) {
+    console.log("MSGGGG:", data);
+    var toUser = _getUserFromList(data.toEmail);
+    if(io.sockets.connected[toUser.socketID]) {
+      console.log("sending to ", toUser.socketID);
+      io.sockets.connected[toUser.socketID].emit("new request", {from: data.from});
+    }
+  });
+
+  socket.on("reponse to request", function(msg) {
+    var toUser = _getUserFromList(msg.result.friend.email);
+    if(io.sockets.connected[toUser.socketID]) {
+      io.sockets.connected[toUser.socketID].emit("request result", {
+        action: msg.result.action,
+        from: msg.from
+      });
+    }
+  });
+
 });
 
 function _addUser2List(email, socket) {
   var userObj = _getUserObj(email, socket);
-
   /*to remove if same user object is present with old socket id*/
   _removeUserFromList(email);
   users.push(userObj);
-
-  //console.log("Remaining users: ", users);
   return userObj;
 }
 
 function _removeUserFromList(email){
-  users = users.filter(function(user){
+  users = users.filter(function(user) {
     return user.email !== email;
   });
+}
 
-  //console.log("Remaining users: ", users);
+function _removeUserFromListUsingID(id) {
+  users = users.filter(function(user) {
+    return user.socketID !== id;
+  });
 }
 
 

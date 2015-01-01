@@ -29,5 +29,15 @@ module.exports = {
 				resolve(msgRes);
 			});
 		});
+	},
+
+	sendRequest: function(toEmail, from) {;
+		_socket.emit("send request", {toEmail: toEmail, from: from});
+		return new Promise(function(resolve, reject){
+			_socket.on("request result", function(res){
+				console.log("My request result:", res);
+				resolve(res);
+			});
+		});
 	}
 }

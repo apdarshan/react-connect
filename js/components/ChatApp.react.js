@@ -1,6 +1,7 @@
 var MessageSection = require('./MessageSection.react');
 var React = require('react');
 var UserStore = require('../stores/UserStore');
+var MessageStore = require('../stores/MessageStore');
 var UsersSection = require('./UsersSection.react');
 var ThreadSection = require('./ThreadSection.react');
 var LoginSection = require('./LoginSection.react');
@@ -15,12 +16,14 @@ var ChatApp = React.createClass({
   
   componentDidMount: function() {
     UserStore.addChangeListener(this._onChange);
+    MessageStore.addChangeListener(this._onChange);
     UserStore.addUsersListChangeListener(this._onUsersChange);
     this._onChange();
   },
 
   componentWillUnmount: function() {
     UserStore.removeChangeListener(this._onChange);
+    MessageStore.removeChangeListener(this._onChange);
     UserStore.removeUsersListChangeListener(this._onUsersChange);
   },
 
@@ -33,7 +36,7 @@ var ChatApp = React.createClass({
   },
 
   _onUsersChange: function() {
-    this.setState({users: UserStore.getUsers(), menuicon: {type: "communication-forum"}}); //triggers render
+    this.setState({menuicon: {type: "communication-forum"}}); //triggers render
   },
 
   _getDefaultState: function() {
@@ -56,9 +59,6 @@ var ChatApp = React.createClass({
           <MessageSection />
         </div>;
       } else {
-        var users = this.state.users.map(function(user){
-          return <div data-id={user.socketID}>{user.username}</div>;
-        });
         mainSection =  <UsersSection/>
       }
 
@@ -77,6 +77,7 @@ var ChatApp = React.createClass({
   },
 
   _logout: function() {
+      _messageView = true;
       LoginActionCreators.logout();
   },
 

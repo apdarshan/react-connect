@@ -18,14 +18,14 @@ module.exports = {
 
   logout: function() {
 
-    return StorageUtils.getExtStorage("user").then(function(user){
+    return StorageUtils.getExtStorage("user").then(function(user) {
       console.log("User data", user);
       return SocketServerUtils.logout(user.email); //let server know
-    }, function(er){
+    }, function(er) {
       console.log(er);
-    }).then(function(){
-      return Promise.all([StorageUtils.setExtStorage("user", null), StorageUtils.setExtStorage("messages", null)]);
-    }, function(er){
+    }).then(function() {
+      return Promise.all([StorageUtils.setExtStorage("user", null), StorageUtils.setExtStorage("friends", null), StorageUtils.setExtStorage("messages", null)]);
+    }, function(er) {
       console.log(er);
     });
   }

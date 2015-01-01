@@ -8,11 +8,15 @@
   width: auto;
   height: auto;
   right: 10px;
-  top: 50%; 
+  top: 10px; 
   border-radius: 10px;
   background: rgba(87, 39, 22, 0.91);
   padding: 12px;
   color: white;
+}
+
+.notif-toaster.notif-action-toaster {
+  top: 150px;
 }
 
 .notif-toaster .notif-toaster-log-info {
@@ -40,4 +44,22 @@
   width: 48px;
   border: 0;
   margin: 0;
+}
+
+.notif-actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.notif-actions button {
+  margin-right: 10px;
+  width: 100px;
+  height: 25px;
+  border-radius: 3px;
+  background: rgba(35, 37, 50, 0.53);
+  border: none;
+  box-shadow: 0px 0px 4px 2px grey;
+  color: white;
+  text-shadow: 0px 10px 8px rgb(82, 29, 108);
+  outline: none;
 }

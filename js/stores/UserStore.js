@@ -21,6 +21,7 @@ var CHANGE_EVENT = 'change', USERS_CHANGE_EVENT = 'users change';
 
 var _user = {};
 var _users = []; // Logged in users
+var _friends = [];
 
 function _markAllInThreadRead(threadID) {
   /*for (var id in _messages) {
@@ -34,6 +35,10 @@ var UserStore = assign({}, EventEmitter.prototype, {
 
   emitChange: function() {
     this.emit(CHANGE_EVENT);
+  },
+
+  emitListChange: function() {
+    this.emit(USERS_CHANGE_EVENT);
   },
 
   /**
@@ -55,10 +60,6 @@ var UserStore = assign({}, EventEmitter.prototype, {
     this.removeListener(USERS_CHANGE_EVENT, callback);
   },
 
-  emitListChange: function() {
-    this.emit(USERS_CHANGE_EVENT);
-  },
-
   get: function() {
     return _user;
   },
@@ -66,12 +67,37 @@ var UserStore = assign({}, EventEmitter.prototype, {
     _user = userObj;
   },
 
+  _isAlreadyInFriendList: function(user) {
+    return _friends.some(function(friend){
+      return user.email === friend.email;
+    });
+  },
+
+  _prepareUsers: function(users) {
+    users.forEach(function(user){
+      user.isFriend = this._isAlreadyInFriendList(user);
+      user.isMyself = (user.email === _user.email);
+    }.bind(this));
+
+    return users;
+  },
+
   setUsers: function(users) {
-    _users = users;
+    _users = this._prepareUsers(users);
   },
 
   getUsers: function() {
     return _users;
+  },
+
+  setFriends: function(friends) {
+    _friends = friends || [];
+  },
+
+  addAsFriend: function(friend) {
+    users.forEach(function(user){
+      user.isFriend = (user.email === friend.email);
+    });
   }
 
 });
@@ -92,7 +118,18 @@ UserStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
       UserStore.emitChange();
       break;
     case ActionTypes.RECEIVE_USERS_LIST:
+      UserStore.setFriends(action.friends);
       UserStore.setUsers(action.users);
+      UserStore.emitListChange();
+      break;
+
+    case ActionTypes.RECEIVE_REQUEST_ACCEPTED:
+      UserStore.addAsFriend(action.result.friend);
+      UserStore.emitListChange();
+      break;
+
+    case ActionTypes.RECEIVE_NEW_FRIENDS_LIST:
+      UserStore.setFriends(action.friends);
       UserStore.emitListChange();
       break;
 

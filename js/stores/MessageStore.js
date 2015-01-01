@@ -15,6 +15,7 @@ var ChatConstants = require('../constants/ChatConstants');
 var ChatMessageUtils = require('../utils/ChatMessageUtils');
 var EventEmitter = require('events').EventEmitter;
 var ThreadStore = require('../stores/ThreadStore');
+var UserStore = require('../stores/UserStore');
 var assign = require('object-assign');
 
 var ActionTypes = ChatConstants.ActionTypes;
@@ -97,7 +98,7 @@ var MessageStore = assign({}, EventEmitter.prototype, {
       id: 'm_' + timestamp,
       threadID: ThreadStore.getCurrentID(),
       threadName: ThreadStore.getCurrent().name,
-      authorName: 'Bill', // hard coded for the example
+      authorName: "Me",// current user
       date: new Date(timestamp),
       text: text,
       isRead: true

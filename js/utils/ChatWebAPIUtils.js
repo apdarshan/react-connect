@@ -13,23 +13,25 @@
 var ChatServerActionCreators = require('../actions/ChatServerActionCreators'),
     UserStore = require('../stores/UserStore'),
     SocketServerUtils = require('./SocketServerUtils'),
+    ChatExampleData = require('../ChatExampleData'),
     Config = require('./Config'),
     StorageUtils = require('./StorageUtils');
 
-// !!! Please Note !!!
-// We are using localStorage as an example, but in a real-world scenario, this
-// would involve XMLHttpRequest, or perhaps a newer client-server protocol.
-// The function signatures below might be similar to what you would build, but
-// the contents of the functions are just trying to simulate client-server
-// communication and server-side processing.
 
 module.exports = {
 
   getAllMessages: function() {
     StorageUtils.getExtStorage('messages').then(function(rawMessages){
-      ChatServerActionCreators.receiveAll(rawMessages);
+      if(rawMessages) {
+        ChatServerActionCreators.receiveAll(rawMessages);
+      } else {
+        /*get default data*/
+        var defaultData = ChatExampleData.getDefaultData();
+        StorageUtils.setExtStorage("messages", defaultData).then(function(){
+          ChatServerActionCreators.receiveAll(defaultData);
+        });
+      }
     });
-
   },
 
   createMessage: function(message) {
@@ -47,6 +49,12 @@ module.exports = {
       });
     });
 
+  },
+
+  sendRequest: function(toEmail, from) {
+    SocketServerUtils.sendRequest(toEmail, from).then(function(res) {
+        ChatServerActionCreators.receiveRequestResult(res);
+    });
   },
 
   _getMessage: function(message) {

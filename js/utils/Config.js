@@ -2,6 +2,10 @@ var StorageUtils = require("./StorageUtils");
 
 var currUser;
 
+String.prototype.capitalize = function() {
+    return this.slice(0,1).toUpperCase() + this.slice(1)
+};
+
 module.exports = {
 
     /*To be called after browser action*/
@@ -32,12 +36,16 @@ module.exports = {
         return this.getBGPage().Socket.get();
     },
 
-    _temp: function(msg) {
+    _updateUI: function(msg) {
         document.querySelector(".message-composer").value = msg;
     },
 
     listen: function() {
-        this.getBGPage().ChatMessage.listen(this._temp);
+        this.getBGPage().ChatMessage.listenSpeech(this._updateUI);
+    },
+
+    addBGListener: function(type, callback) {
+        this.getBGPage().Message.on(type, callback);
     }
     
 }

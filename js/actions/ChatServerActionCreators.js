@@ -10,6 +10,9 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+
+/*from server*/
+
 var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
 var ChatConstants = require('../constants/ChatConstants');
 
@@ -29,6 +32,20 @@ module.exports = {
       type: ActionTypes.RECEIVE_RAW_CREATED_MESSAGE,
       rawMessage: createdMessage
     });
+  },
+
+  receiveRequestResult: function(res) {
+    if(res.action === "accept") {
+      ChatAppDispatcher.handleServerAction({
+        type: ActionTypes.RECEIVE_REQUEST_ACCEPTED,
+        result: res
+      });
+    } else if(res.action === "reject") {
+      ChatAppDispatcher.handleServerAction({
+        type: ActionTypes.RECEIVE_REQUEST_REJECTED,
+        result: res
+      });
+    }
   }
 
 };

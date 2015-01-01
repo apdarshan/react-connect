@@ -14,7 +14,6 @@ function getStateFromStores() {
 function getUserListItem(user) {
   return (
     <UserListItem
-      key={user.email}
       user={user}
     />
   );

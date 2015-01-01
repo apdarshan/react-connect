@@ -13,6 +13,8 @@
 // This file bootstraps the entire application.
 
 var ChatApp = require('./components/ChatApp.react');
+var Config = require('./utils/Config');
+var UserStore = require('./stores/UserStore');
 var ChatExampleData = require('./ChatExampleData');
 var ChatWebAPIUtils = require('./utils/ChatWebAPIUtils');
 var SocketServerUtils = require('./utils/SocketServerUtils');
@@ -28,7 +30,13 @@ window.React = React; // export for http://fb.me/react-devtools
 
 
 /*Default Example data*/
-ChatExampleData.init().then(function() {
+function init() {
+	return Config.getUser().then(function(user){
+		return UserStore.set(user);
+	});
+}
+
+init().then(function() {
 
 	ChatWebAPIUtils.getAllMessages();
 	React.render(

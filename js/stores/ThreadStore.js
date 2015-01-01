@@ -98,7 +98,12 @@ var ThreadStore = assign({}, EventEmitter.prototype, {
 
   getCurrent: function() {
     return this.get(this.getCurrentID());
-  }
+  },
+
+  /*create new thread*/
+  /*add: function(from) {
+
+  }*/
 
 });
 
@@ -115,6 +120,12 @@ ThreadStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
 
     case ActionTypes.RECEIVE_RAW_MESSAGES:
       ThreadStore.init(action.rawMessages);
+      ThreadStore.emitChange();
+      break;
+
+    case ActionTypes.RECEIVE_REQUEST_ACCEPTED:
+      console.error(action);
+      //ThreadStore.add(action.from);
       ThreadStore.emitChange();
       break;
 
