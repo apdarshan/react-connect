@@ -20,8 +20,10 @@ var assign = require('object-assign');
 
 var ActionTypes = ChatConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
+var SPEECH_INPUT_EVENT = 'speech input';
 
-var _messages = {};
+var _messages = {},
+    _speechText = "";
 
 function _addMessages(rawMessages) {
   rawMessages.forEach(function(message) {
@@ -48,11 +50,22 @@ var MessageStore = assign({}, EventEmitter.prototype, {
     this.emit(CHANGE_EVENT);
   },
 
+  emitSpeechInput: function() {
+    this.emit(SPEECH_INPUT_EVENT);
+  },
   /**
    * @param {function} callback
    */
   addChangeListener: function(callback) {
     this.on(CHANGE_EVENT, callback);
+  },
+
+  addSpeechInputListener: function(callback) {
+    this.on(SPEECH_INPUT_EVENT, callback);
+  },
+
+  removeSpeechInputListener: function(callback) {
+    this.removeListener(SPEECH_INPUT_EVENT, callback);
   },
   
   removeChangeListener: function(callback) {
@@ -65,6 +78,10 @@ var MessageStore = assign({}, EventEmitter.prototype, {
 
   getAll: function() {
     return _messages;
+  },
+
+  getSpeechText: function() {
+    return _speechText;
   },
 
   /**
@@ -101,7 +118,9 @@ var MessageStore = assign({}, EventEmitter.prototype, {
       authorName: "Me",// current user
       date: new Date(timestamp),
       text: text,
-      isRead: true
+      isRead: true,
+      sender: UserStore.get(),
+      to: ThreadStore.getCurrent().to
     };
   }
 
@@ -129,6 +148,11 @@ MessageStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
       ChatAppDispatcher.waitFor([ThreadStore.dispatchToken]);
       _markAllInThreadRead(ThreadStore.getCurrentID());
       MessageStore.emitChange();
+      break;
+
+    case ActionTypes.RECEIVE_SPEECH_MESSAGE:
+      _speechText = action.speechMessage;
+      MessageStore.emitSpeechInput();
       break;
 
     default:

@@ -63,6 +63,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
   get: function() {
     return _user;
   },
+  
   set: function(userObj){
     _user = userObj;
   },

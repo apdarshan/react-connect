@@ -37,20 +37,25 @@ io.on('connection', function(socket) {
 
   socket.on('chat message', function(msg){
 
-    var user = _getUserFromList(msg.sender.email); //not using socket id
+    console.log('received message: ::::', msg, " From USer::", msg.sender, " TOOOO user", msg.to);
+
+    var user = _getUserFromList(msg.sender.email),
+        toUser = _getUserFromList(msg.to.email); //not using socket id
 
     /*if user not defined*/
     if(!user) {
       _addUser2List(msg.sender.email, socket);
     }
 
-    console.log('received message: ::::', msg, " From USer::", user);
-
     /*to sender*/
     io.emit('message sent', msg);
+    
+    if(io.sockets.connected[toUser.socketID]) {
+      io.sockets.connected[toUser.socketID].emit('new message', {msg: msg, from: user});
+    }
 
-    /*to everyone (TODO: should be 1-1) except sender*/
-    socket.broadcast.emit('new message', {msg: msg, from: user});
+    /*to everyone*/
+    //socket.broadcast.emit('new message', {msg: msg, from: user});
 
   });
 
@@ -128,11 +133,24 @@ function _removeUserFromListUsingID(id) {
 }
 
 
+function _getDefaultImg() {
+  var images = [
+  "http://4.bp.blogspot.com/-SRSVCXNxbAc/UrbxxXd06YI/AAAAAAAAFl4/332qncR9pD4/s50-c/default-avatar.jpg",
+  "https://u.ph.edim.co/default-avatars/45_42.jpg",
+  "https://c336017.ssl.cf1.rackcdn.com/profile-default_s.png",
+  "https://pbs.twimg.com/profile_images/1343385304/default_profile_2_normal_normal.png",
+  "http://hackstory.net/upload/7/7b/Default-profile-_10.png",
+  "http://www.csc.com/images/new/icons/comment_default_user_icon.png"
+  ];
+  return images[Math.round(Math.random() * (images.length-1))];
+}
+
+
 function _getUserObj(email, socket) {
 
   console.log("Logged in Socket", socket.id);
 
-  var gravatarImg = "http://www.gravatar.com/avatar/" + md5(email),
+  var gravatarImg = "http://www.gravatar.com/avatar/" + md5(email) + "?d=" + _getDefaultImg(),
       username = email.split("@")[0];
 
   return {username: username, email: email, gravatar: gravatarImg, socketID: socket.id}

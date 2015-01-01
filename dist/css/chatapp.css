@@ -18,12 +18,12 @@
 }
 
 .message-list, .thread-list {
-  border: 1px solid #ccf;
   font-size: 16px;
   height: 400px;
   margin: 0;
   overflow-y: auto;
   padding: 0;
+  box-shadow: 0px 0px 1px 1px rgb(174, 174, 174);
 }
 
 .message-section {
@@ -49,7 +49,7 @@
 }
 
 .thread-list-item {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #E5E5E5;
   cursor: pointer;
 }
 
@@ -64,20 +64,20 @@
 .thread-list-item.active,
 .thread-list:hover .thread-list-item.active,
 .thread-list:hover .thread-list-item.active:hover {
-  background-color: #efefff;
+  background-color: #F4F4F4;
   cursor: default;
 }
 
 .message-author-name,
 .thread-name {
-  color: #66c;
+  color: #C81F1F;
   float: left;
   font-size: 13px;
   margin: 0;
 }
 
 .message-time, .thread-time {
-  color: #aad;
+  color: #999;
   float: right;
   font-size: 12px;
 }
@@ -86,9 +86,13 @@
   clear: both;
   font-size: 14px;
   padding-top: 10px;
+  color: rgb(14, 13, 66);
 }
 
 .message-composer {
+  border: none;
+  box-shadow: 0px 0px 1px 1px rgb(166, 169, 168);
+  outline: none;
   box-sizing: border-box;
   font-family: inherit;
   font-size: 14px;
@@ -168,6 +172,7 @@ input {
 
 .message-section h3 {
   padding: 0;
+  color: rgb(64, 50, 132);
 }
 
 .login-icon {
@@ -204,7 +209,7 @@ input {
 .user-list-item .user-gravatar img {
   width: 50px;
   height: 50px;
-  border: 2px solid rgb(110, 115, 110);
+  border: 3px solid rgb(255, 255, 255);
   background: rgb(236, 236, 236);
   border-radius: 100%;
 }

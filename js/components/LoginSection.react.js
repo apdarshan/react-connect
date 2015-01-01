@@ -1,8 +1,7 @@
 var LoginActionCreators = require('../actions/LoginActionCreators');
 var React = require('react');
 var MUI = require('material-ui');
-var RaisedButton = MUI.RaisedButton;
-var Paper = MUI.Paper;
+var ENTER_KEY_CODE = 13;
 
 var LoginSection = React.createClass({
 
@@ -25,13 +24,20 @@ var LoginSection = React.createClass({
     return (
       <div id="login-section">
         <MUI.Icon className="login-icon" icon="communication-email" />
-        <input id="login-email" type="text" placeholder="Enter email address"/>
-        <RaisedButton label="Join" primary={true} onClick={this._onClick}/>
+        <input id="login-email" type="text" placeholder="Enter email address" onKeyDown={this._onKeyDown}/>
+        <MUI.RaisedButton label="Join" primary={true} onClick={this._login}/>
       </div>
     );
   },
 
-  _onClick: function() {
+  _onKeyDown: function(event) {
+    if (event.keyCode === ENTER_KEY_CODE) {
+      event.preventDefault();
+      this._login();
+    }
+  },
+
+  _login: function() {
     var email = document.querySelector("#login-email").value.trim();
     if(email) {
       LoginActionCreators.login(email);

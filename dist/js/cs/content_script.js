@@ -19,9 +19,9 @@ function _runtimeMsgListener(request, sender, sendResponse) {
 	} else if(request.type === "message-toaster" && request.data) {
 		var toasterInfo = {
 			imgSrc: request.data.from.gravatar, 
-			msg: "Says: " + request.data.msg.text, 
-			autoHide : { 
-				interval:8000, 
+			msg: request.data.from.username + " says: " + request.data.msg.text, 
+			autoHide : {
+				interval:8000,
 				animateClass: "flipOutX"
 			}
 		};

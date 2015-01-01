@@ -20,6 +20,13 @@ var ChatServerActionCreators = require('../actions/ChatServerActionCreators'),
 
 module.exports = {
 
+  init: function() {
+    /*new message listener*/
+    Config.addBGListener("new message", function(messages) {
+      ChatServerActionCreators.receiveAll(messages);
+    });
+  },
+
   getAllMessages: function() {
     StorageUtils.getExtStorage('messages').then(function(rawMessages){
       if(rawMessages) {
@@ -68,7 +75,8 @@ module.exports = {
       authorName: message.authorName,
       text: message.text,
       timestamp: timestamp,
-      sender: Config.getUserSync()
+      sender: message.sender,//Config.getUserSync(),
+      to: message.to
     };
     return createdMessage;
   }

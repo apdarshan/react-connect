@@ -33,6 +33,7 @@ window.React = React; // export for http://fb.me/react-devtools
 /*Default Example data*/
 function init() {
 	UserWebAPIUtils.init();
+	ChatWebAPIUtils.init();
 	return Config.getUser().then(function(user){
 		return UserStore.set(user);
 	});

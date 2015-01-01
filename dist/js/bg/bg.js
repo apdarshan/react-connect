@@ -60,7 +60,7 @@
 
 	function getUser() {
 		return new Promise(function(resolve, reject){
-			chrome.storage.sync.get("user", function(value) {
+			chrome.storage.local.get("user", function(value) {
     			resolve(value["user"]);
     		});
 		});
@@ -68,7 +68,7 @@
 
 	function checkInFriendsList(newFriend) {
 		return new Promise(function(resolve, reject){
-			chrome.storage.sync.get("friends", function(value) {
+			chrome.storage.local.get("friends", function(value) {
 				var isFound = value["friends"] && value["friends"].some(function(friend){
 					return friend.email === newFriend.email;
 				});
@@ -79,12 +79,23 @@
 		});
 	}
 
-	function addThread(newFriend) {
+	/*To have same threadID for both users*/
+	function _generateThreadID(user, friend, isMyRequest) {
+		var id = 't_';
+		if(isMyRequest) {
+			id += user.username + '_' + friend.username;
+		} else {
+			id += friend.username + '_' + user.username;
+		}
+		return id;
+	}
+
+	function addThread(newFriend, isMyRequest) {
 		/*Trick: creating a dummy msg, so that threads are created*/
 		checkInFriendsList(newFriend).then(getUser).then(function(user) {
 			var timestamp = Date.now();
 			var id = 'm_' + timestamp;
-		    var threadID = ('t_' + timestamp);
+		    var threadID = _generateThreadID(user, newFriend, isMyRequest);//('t_' + timestamp);
 		    var startUpMsg = {
 		      id: id,
 		      threadID: threadID,
@@ -95,10 +106,10 @@
 		      sender: user,
 		      to: newFriend
 		    };
-		    chrome.storage.sync.get("messages", function(value) {
-		    	var messages = value["messages"];
+		    chrome.storage.local.get("messages", function(value) {
+		    	var messages = value["messages"] || [];
 		    	messages.push(startUpMsg);
-		    	chrome.storage.sync.set({"messages" :messages}, function() {
+		    	chrome.storage.local.set({"messages" :messages}, function() {
 		    		addToFriendList(newFriend).then(function(friends){
 		    			window.Message.emit("new friend", friends);
 		    		});
@@ -108,15 +119,33 @@
 	}
 
 	function addToFriendList(newFriend) {
-		return new Promise(function(resolve, reject) { 
-			chrome.storage.sync.get("friends", function(value) {
+		return new Promise(function(resolve, reject) {
+			chrome.storage.local.get("friends", function(value) {
 		    	var friends = value["friends"] || [];
 		    	friends.push(newFriend);
-		    	chrome.storage.sync.set({"friends" :friends}, function() {
+		    	chrome.storage.local.set({"friends" :friends}, function() {
 		    		resolve(friends);
 		    	});
     		});
 		});
+	}
+
+	function saveMessage(data) {
+
+		console.error("Saving message", data);
+		/*changing threadName*/
+		data.msg.threadName = "You and " + data.from.username.capitalize();
+		data.msg.authorName = data.from.username.capitalize();
+		data.msg.to = JSON.parse(JSON.stringify(data.from)); //to send to other user next time
+
+		chrome.storage.local.get("messages", function(value) {
+	    	var messages = value["messages"];
+	    	messages.push(data.msg);
+	    	chrome.storage.local.set({"messages" :messages}, function() {
+	    		/*notify popup*/
+				window.Message.emit("new message", messages);
+	    	});
+	    });
 	}
 
 
@@ -130,9 +159,10 @@
 		_sendMessage2ContentScript(payload);
 	});
 
-	_socket.on("new message", function(data){
+	_socket.on("new message", function(data) {
 		var payload = {type: "message-toaster", data: data};
 		_sendMessage2ContentScript(payload);
+		saveMessage(data);
 	});
 
 	_socket.on("new request", function(data){
@@ -143,7 +173,7 @@
 	_socket.on("request result", function(res) {
 		console.log("My request result:", res);
 		if(res.action === "accept") {
-			addThread(res.from);
+			addThread(res.from, true);
 		}
 	});
 
@@ -188,7 +218,6 @@
 			_sendMessage2ContentScript({type:"listen"});
 			chrome.runtime.onMessageExternal.addListener(function(request, sender, sendResponse) {
 			    if(request.data.msg) {
-			    	console.log("BG", request.data.msg);
 			    	success(request.data.msg);
 				}
 			});

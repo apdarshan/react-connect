@@ -34,7 +34,8 @@ var ThreadStore = assign({}, EventEmitter.prototype, {
       _threads[threadID] = {
         id: threadID,
         name: message.threadName,
-        lastMessage: ChatMessageUtils.convertRawMessage(message, _currentID)
+        lastMessage: ChatMessageUtils.convertRawMessage(message, _currentID),
+        to: message.to || null
       };
     }, this);
 

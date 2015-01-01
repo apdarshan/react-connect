@@ -31,7 +31,12 @@ module.exports = {
   },
 
   listen: function() {
-  	Config.listen();
+  	Config.getBGPage().ChatMessage.listenSpeech(function(speechMessage){
+      ChatAppDispatcher.handleViewAction({
+        type: ActionTypes.RECEIVE_SPEECH_MESSAGE,
+        speechMessage: speechMessage
+      });
+    });
   },
 
   sendRequest: function(toEmail) {

@@ -36,13 +36,14 @@ module.exports = {
         return this.getBGPage().Socket.get();
     },
 
-    _updateUI: function(msg) {
-        document.querySelector(".message-composer").value = msg;
-    },
+    /*_updateUI: function(msg) {
+        var composer =  document.querySelector(".message-composer");
+        composer.innerText = msg;
+    },*/
 
-    listen: function() {
-        this.getBGPage().ChatMessage.listenSpeech(this._updateUI);
-    },
+    /*listen: function() {
+        
+    },*/
 
     addBGListener: function(type, callback) {
         this.getBGPage().Message.on(type, callback);

@@ -11,7 +11,7 @@ module.exports = {
         	return new Promise(function(resolve, reject){
         		var data = {};
         		data[key] = obj;
-        		chrome.storage.sync.set(data, function() {
+        		chrome.storage.local.set(data, function() {
 		          // Notify that we saved.
 		          console.log('Settings saved');
 		          resolve();
@@ -20,7 +20,7 @@ module.exports = {
         },
         getExtStorage: function(key) {
         	return new Promise(function(resolve, reject){
-        		chrome.storage.sync.get(key, function(value) {
+        		chrome.storage.local.get(key, function(value) {
 	        		resolve(value[key]);
 	        	});
         	});

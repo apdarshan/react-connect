@@ -11,6 +11,7 @@
  */
 
 var ChatMessageActionCreators = require('../actions/ChatMessageActionCreators');
+var MessageStore = require('../stores/MessageStore');
 var React = require('react');
 
 var ENTER_KEY_CODE = 13;
@@ -19,6 +20,14 @@ var MessageComposer = React.createClass({
 
   getInitialState: function() {
     return {text: ''};
+  },
+
+  componentDidMount: function() {
+    MessageStore.addSpeechInputListener(this._onSpeechInput);
+  },
+
+  componentWillUnmount: function() {
+    MessageStore.removeSpeechInputListener(this._onSpeechInput);
   },
 
   render: function() {
@@ -41,6 +50,10 @@ var MessageComposer = React.createClass({
       />
       </div>
     );
+  },
+
+  _onSpeechInput: function() {
+    this.setState({text: MessageStore.getSpeechText()});
   },
 
   _onChange: function(event, value) {

@@ -23,7 +23,7 @@ module.exports = {
     RECEIVE_REQUEST_ACCEPTED: null,
     RECEIVE_REQUEST_REJECTED: null,
     RECEIVE_NEW_FRIENDS_LIST: null,
-
+    RECEIVE_SPEECH_MESSAGE: null,
     LOGIN_USER: null,
     LOGOUT_USER: null
   }),

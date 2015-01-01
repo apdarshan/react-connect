@@ -22,6 +22,10 @@ module.exports = {
 	},
 
 	sendMsg: function(msg) {
+		//no user found, blind resolve
+		if(!msg.to) {
+			return Promise.resolve(msg);
+		}
 		_socket.emit("chat message", msg);
 		return new Promise(function(resolve, reject){
 			_socket.on("message sent", function(msgRes){
