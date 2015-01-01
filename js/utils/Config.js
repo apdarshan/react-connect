@@ -36,17 +36,19 @@ module.exports = {
         return this.getBGPage().Socket.get();
     },
 
-    /*_updateUI: function(msg) {
-        var composer =  document.querySelector(".message-composer");
-        composer.innerText = msg;
-    },*/
-
-    /*listen: function() {
-        
-    },*/
+    _resetBrowserActionIcon: function() {
+        chrome.browserAction.setIcon({
+            path: "images/icon.png"
+        });
+        chrome.browserAction.setBadgeText({ text: "" });
+    },
 
     addBGListener: function(type, callback) {
         this.getBGPage().Message.on(type, callback);
+    },
+
+    init: function() {
+        this._resetBrowserActionIcon();
     }
     
 }

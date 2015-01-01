@@ -34,6 +34,7 @@ window.React = React; // export for http://fb.me/react-devtools
 function init() {
 	UserWebAPIUtils.init();
 	ChatWebAPIUtils.init();
+	Config.init();
 	return Config.getUser().then(function(user){
 		return UserStore.set(user);
 	});

@@ -50,7 +50,7 @@ io.on('connection', function(socket) {
     /*to sender*/
     io.emit('message sent', msg);
     
-    if(io.sockets.connected[toUser.socketID]) {
+    if(toUser && io.sockets.connected[toUser.socketID]) {
       io.sockets.connected[toUser.socketID].emit('new message', {msg: msg, from: user});
     }
 

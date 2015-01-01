@@ -130,9 +130,15 @@
 		});
 	}
 
-	function saveMessage(data) {
+	function updateBrowserActionIcon(from) {
+		chrome.browserAction.setIcon({
+            path: "images/unread.png"
+        });
+        /*Badge: firstletter of sender username*/
+        chrome.browserAction.setBadgeText({ text: from.username.slice(0,1).toUpperCase() });
+	}
 
-		console.error("Saving message", data);
+	function saveMessage(data) {
 		/*changing threadName*/
 		data.msg.threadName = "You and " + data.from.username.capitalize();
 		data.msg.authorName = data.from.username.capitalize();
@@ -142,6 +148,7 @@
 	    	var messages = value["messages"];
 	    	messages.push(data.msg);
 	    	chrome.storage.local.set({"messages" :messages}, function() {
+	    		updateBrowserActionIcon(data.from);
 	    		/*notify popup*/
 				window.Message.emit("new message", messages);
 	    	});
