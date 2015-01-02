@@ -1,6 +1,6 @@
 (function(){
 
-	var CHAT_SOCKET_DOMAIN = "http://localhost:3003";
+	var CHAT_SOCKET_DOMAIN = "https://localhost:3004";
 	var _socket;
 
 
@@ -19,7 +19,7 @@
 	}
 
 	function _connectSocket() {
-		_socket = io.connect(CHAT_SOCKET_DOMAIN);
+		_socket = io.connect(CHAT_SOCKET_DOMAIN, {secure: true});
 		_loginBack();
 		return _socket;
 	}

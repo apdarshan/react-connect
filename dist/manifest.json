@@ -23,5 +23,5 @@
   "externally_connectable": {
     "matches": ["https://localhost:3004/*"]
   },
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com http://localhost:3003 https://localhost:3004 https://www.google.com; object-src 'self'"
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://localhost:3004 http://localhost:3004/socket.io/socket.io.js https://www.google.com; object-src 'self'"
 }
