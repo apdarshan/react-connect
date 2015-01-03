@@ -34,7 +34,7 @@ module.exports = {
   }),
 
   SOCKET: {
-    DOMAIN: "https://localhost:3004"
+    DOMAIN: "https://5f24a071.ngrok.com"
   } 
 
 };
