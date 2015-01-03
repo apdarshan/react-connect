@@ -41,6 +41,7 @@
   height: 40px;
   line-height: 40px;
   margin: 0;
+  color: rgb(249, 255, 0);
 }
 
 .message-list-item, .thread-list-item {
