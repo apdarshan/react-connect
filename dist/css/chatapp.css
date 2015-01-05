@@ -226,7 +226,9 @@ input {
   background-color: #23AE6A
 }
 
-
+#react .user-list-item .send-request-btn button {
+  background-color: #389D8D;
+}
 
 .google-microphone {
   width:10em; height:3em;
