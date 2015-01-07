@@ -21,7 +21,7 @@
     "page": "background.html"
   },
   "externally_connectable": {
-    "matches": ["https://localhost:3004/*"]
+    "matches": ["https://5f24a071.ngrok.com/*"]
   },
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://localhost:3004 http://localhost:3004/socket.io/socket.io.js https://www.google.com; object-src 'self'"
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://5f24a071.ngrok.com https://5f24a071.ngrok.com/socket.io/socket.io.js https://www.google.com; object-src 'self'"
 }

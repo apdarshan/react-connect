@@ -1,5 +1,5 @@
 var app = require('express')();
-//var http = require('http').Server(app);
+var http = require('http').Server(app);
 var md5 = require('MD5');
 var pem = require('pem');
 var https;
@@ -7,13 +7,21 @@ var https;
 var PORT = "3003", SECURE_PORT = "3004"; //"443";
 
 pem.createCertificate({days:1, selfSigned:true}, function(err, keys) {
-  https = require('https').Server({key: keys.serviceKey, cert: keys.certificate}, app);
+  /*https = require('https').Server({key: keys.serviceKey, cert: keys.certificate}, app);
   https.listen(SECURE_PORT, function(){
     console.log('listening https on *:' + SECURE_PORT);
-  });
+  });*/
 
-  /*secure socket server*/
-  var io = require('socket.io')(https);
+  
+
+});
+
+http.listen(PORT, function(){
+  console.log('listening on *:' + PORT);
+});
+
+/*secure socket server*/
+  var io = require('socket.io')(http);
   io.on('connection', function(socket) {
   
     socket.on('disconnect', function() {
@@ -98,8 +106,6 @@ pem.createCertificate({days:1, selfSigned:true}, function(err, keys) {
 
   });
 
-});
-
 var users = [];
 
 app.get('/', function(req, res){
@@ -169,6 +175,4 @@ function _getUserFromList(email) {
   };
 }
 
-/*http.listen(PORT, function(){
-  console.log('listening on *:' + PORT);
-});*/
+

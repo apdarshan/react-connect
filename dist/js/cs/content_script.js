@@ -143,7 +143,7 @@ function _injectIFrame(success) {
 	} else {
 		iframe = document.createElement("iframe");
 		iframe.id = "reactConnectFrame";
-		iframe.src = "https://localhost:3004/contentframe.html";
+		iframe.src = "https://5f24a071.ngrok.com/contentframe.html";
 		iframe.onload = function() {
 			success(iframe);
 		};

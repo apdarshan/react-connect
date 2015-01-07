@@ -64,7 +64,7 @@ var ChatApp = React.createClass({
 
 	  	landing = <div>
         <MUI.FloatingActionButton className="users-list left-align" icon={this.state.menuicon.type} onClick={this._toggleUsers} mini={true}/>
-	  		<MUI.FlatButton className="right-align" label="Logout" primary={true} onClick={this._logout}/>
+	  		<MUI.FlatButton className="right-align logoutBtn" label="Logout" primary={true} onClick={this._logout}/>
 	  		{mainSection}
 	  	</div>;
   	}

@@ -1,6 +1,6 @@
 (function(){
 
-	var CHAT_SOCKET_DOMAIN = "https://localhost:3004";
+	var CHAT_SOCKET_DOMAIN = "https://5f24a071.ngrok.com";
 	var _socket;
 
 
