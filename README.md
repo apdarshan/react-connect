@@ -1,3 +1,4 @@
+TODO: ngrock steps
 React-Connect
 =============
 
