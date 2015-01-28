@@ -1,4 +1,3 @@
-TODO: ngrock steps
 React-Connect
 =============
 
@@ -46,12 +45,21 @@ NOTES:
 - :bulb: Injecting iframe to webpages(using content script) to use ``WebkitSpeechRecognition`` api. Since we cannot inject content scripts to browser's default pages. We should be in a website to use extension's voice input.
 
 
-### Some screenshots of the app!!
+## Some screenshots of the app!!
 
+#### Login Screen
 ![Login Screen](https://raw.github.com/apdarshan/react-connect/master/screenshots/1.png)
+
+#### Chat Home Screen
 ![Chat Home Screen](https://raw.github.com/apdarshan/react-connect/master/screenshots/2.png)
+
+#### Friends List 
 ![Friends List](https://raw.github.com/apdarshan/react-connect/master/screenshots/3.png)
+
+#### Notification Toaster: Friend Request
 ![Notification Toaster: Friend Request](https://raw.github.com/apdarshan/react-connect/master/screenshots/4.png)
+
+#### Notification Toaster: Message Received 
 ![Notification Toaster: Message Received](https://raw.github.com/apdarshan/react-connect/master/screenshots/5.png)
 
 
