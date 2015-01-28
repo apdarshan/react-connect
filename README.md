@@ -10,6 +10,10 @@ Clone this repo and follow below steps to run the app
 - Install NodeJS using http://nodejs.org/
 - Go to ``server`` directory & run ``npm install`` using command line (installs node dependencies)
 - :point_down:And run command ``node index.js`` to start the servers  - http (@ port 3003) and https (@ port 3004)
+- Install ngrok https://ngrok.com and add it to you env PATH variable
+- Run ``ngrok 3003`` from command line. You will get Tunnel details,
+- Copy Secure ``Forwarding address`` eg. https://<generated_random_no>.ngrok.com
+- Replace all occurances(around 8) of old ngrok address(https://5f24a071.ngrok.com) with new copied one (https://<generated_random_no>.ngrok.com) in entire react-connect source code.
 
 ### Run Browserify watcher
 - Using command line ``npm install`` in the root directory of the project (installs node dependencies)
