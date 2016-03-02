@@ -10,9 +10,9 @@ Clone this repo and follow below steps to run the app
 - Go to ``server`` directory & run ``npm install`` using command line (installs node dependencies)
 - :point_down:And run command ``node index.js`` to start the servers  - http (@ port 3003) and https (@ port 3004)
 - Install ngrok https://ngrok.com and add it to you env PATH variable
-- Run ``ngrok 3003`` from command line. You will get Tunnel details,
-- Copy Secure ``Forwarding address`` eg. https://\<generated_random_no\>.ngrok.com
-- Replace all occurances(around 8) of old ngrok address(https://5f24a071.ngrok.com) with new copied one (https://\<generated_random_no\>.ngrok.com). [Search and replace in entire react-connect source code.]
+- Run ``ngrok http 3003`` from command line. You will get Tunnel details,
+- Copy Secure ``Forwarding address`` eg. ://\<generated_random_val\>.ngrok.io
+- Replace all occurances(around 8) of old ngrok address(://5f24a071.ngrok.com) with new copied one (://\<generated_random_val\>.ngrok.io). [Search and replace in entire react-connect source code.]
 
 ### Run Browserify watcher
 - Using command line ``npm install`` in the root directory of the project (installs node dependencies)
@@ -25,11 +25,11 @@ Clone this repo and follow below steps to run the app
 
 ### Granting permissions (one time)
 - SSL permission for localhost
-	- In a Chrome tab Open ``https://localhost:3004/contentframe.html``
+	- In a Chrome tab Open ``https://\<generated_random_val\>.ngrok.io/contentframe.html``
 	- Click on ``Advanced``
 	- Click on ``Proceed to localhost (unsafe)``
 - Enabling Microphone access
-	- On opening of ``https://localhost:3004/contentframe.html`` first time, Once you ssl permission is success, You will get a popup asking permission to access microphone
+	- On opening of ``https://\<generated_random_val\>.ngrok.io/contentframe.html`` first time, Once you ssl permission is success, You will get a popup asking permission to access microphone
 	- Click ``Allow``
 
 ### Run App - Finally!
